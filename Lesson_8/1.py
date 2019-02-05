@@ -66,6 +66,19 @@ def getEncoded(tbl,in_str):
         result += tbl[ch]
     return result
 
+def getDecoded(tree,in_str):
+    result = ""
+    node = tree[1]
+    for ch in in_str:
+        if ch =="0":
+            node = node.left[1]
+        else:
+            node = node.right[1]
+        if not isinstance(node, HuffmanNode):
+            result += node
+            node = tree[1]
+    return result
+
 in_str = "beep boop beer!"
 freq = getFreq(in_str)
 
@@ -74,4 +87,6 @@ tree = getTree(freq)
 tbl = {}
 walk_tree(tree, "", tbl)
 print(tbl)
-print(getEncoded(tbl,in_str))
+coded = getEncoded(tbl,in_str)
+print(coded)
+print(getDecoded(tree, coded))
